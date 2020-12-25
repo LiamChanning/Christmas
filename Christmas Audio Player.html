@@ -1,0 +1,208 @@
+<html>
+    <head>
+        <link href="Main.css" rel="stylesheet"/>
+        <script src="JS/jquery-1.10.2.min.js"></script>
+            <link rel = "icon" href =  
+    "https://www.noradsanta.org/images/pop/musicstage/musical-note-with-hat.png" 
+            type = "image/x-icon"> 
+    </head>
+        <div id="bg">
+            <div id="blackLayer"> 
+                <div id="instruct">
+                    <h2>
+                        INSTRUCTIONS
+                    </h2>
+                    <h3>
+                        1)Make sure the volume is at max before muting
+                    </br>
+                        2)Have fun!
+                </br>
+                3)MERRY CHRISTMAS!!
+                    </h3>          
+            </div>
+
+        </div>
+
+        </div>
+        <div id="main">
+            <div id="head">
+                <h2>|Music|</h2>
+                </div>
+            <div id="image">
+                <img src= giphy.gif>
+            </div>
+            <div id="player">
+                <div id="songTitle">Demo</div>
+                <div id="buttons">
+                    <button id="pre" onclick="pre()"><img src="Pre.png" height="90%" width="90%"/></button>
+                    <button id="play" onclick="playOrPauseSong()"><img src="Pause.png"/></button>
+                    <button id="next" onclick="next()"><img src="Next.png" height="90%" width="90%"/></button>
+                </div>
+                
+                <div id="seek-bar">
+                    <div id="fill"></div>
+                    <div id="handle"></div>
+                </div>
+                <div id="currentTime">00:00 /00:00</div>
+
+                <div id="volume">
+                    <button id="decrease" onclick="decreaseVolume()"><img src="remove.png"></button>
+                    <button id="mute" onclick="muteVolume()"><img src="mute.png"></button>
+                    <button id="increase" onclick="increaseVolume()"><img src="plus.png"></button>
+                    
+                </div>
+                
+            </div>
+
+        </div>
+
+        <div>
+            <div>
+            </div>
+        </div>
+
+
+
+    </body>
+    <script type="text/javascript">
+    var background = {
+    "Willow": "red",
+    "Champagne problems": "#cfb161"
+    }
+    
+        var songs = ["Snowman.mp3.","A holly jolly christmas.mp3","Wham.mp3","The most wonderful time of the year.mp3","All i want for christmas.mp3","white christmas.mp3","O holy night.mp3","Jingel bell rock.mp3"];
+        var poster = ["giphy.gif","images.jpg","wham.jpg","wonderful time.png","All i want for christmas.jpg"];
+        
+        var songTitle = document.getElementById("songTitle");
+        var fillBar = document.getElementById("fill");
+
+        var currentTime = document.getElementById("currentTime");
+        
+        
+        var song = new Audio();
+        var currentSong = 0;    // it point to the current song
+
+        
+        window.onload = playSong;   // it will call the function playSong when window is load
+
+        $("#bg").css("background-color", background[currentSong]);
+
+        function playSong(){
+            
+            song.src = songs[currentSong];  //set the source of 0th song 
+            
+            songTitle.textContent = songs[currentSong]; // set the title of song
+            
+            song.play();    // play the song
+        }
+        
+        function playOrPauseSong(){
+            
+            if(song.paused){
+                song.play();
+                $("#play img").attr("src","Pause.png");
+            }
+            else{
+                song.pause();
+                $("#play img").attr("src","Play.png");
+            }
+        }
+        
+        song.addEventListener('timeupdate',function(){ 
+            
+            var position = song.currentTime / song.duration;
+            
+            fillBar.style.width = position * 100 +'%';
+        
+            convertTime(Math.round(song.currentTime)); //convert decimal into intiger
+
+            if(song.ended){
+                next();
+            }
+
+        });
+
+        function convertTime(seconds)
+        {
+            var min = Math.floor(seconds/60)
+            var sec= seconds% 60;
+
+            min = (min < 10) ? "0" + min : min;
+            sec = (sec < 10) ? "0" + sec : sec;
+            currentTime.textContent = min + ":" + sec;
+
+            totalTime(Math.round(song.duration));
+        }
+        
+        function totalTime(seconds)
+        {
+            var min = Math.floor(seconds/60)
+            var sec= seconds% 60;
+
+            min = (min < 10) ? "0" + min : min;
+            sec = (sec < 10) ? "0" + sec : sec;
+            currentTime.textContent += "/" + min + ":" + sec;
+        }
+    
+        function next(){
+            
+            currentSong++;
+            if(currentSong > 7){
+                currentSong = 0;
+            }
+            playSong();
+            $("#play img").attr("src","Pause.png");
+            $("#image img").attr("src",poster[currentSong]);
+            $("#bg img").attr("src",poster[currentSong]);
+        }
+    
+        function pre(){
+            
+            currentSong--;
+            if(currentSong < 0){
+                currentSong = 7;
+            }
+            playSong();
+            $("#play img").attr("src","Pause.png");
+            $("#image img").attr("src",poster[currentSong]);
+            $("#bg img").attr("src",poster[currentSong]);
+        }
+
+
+        function decreaseVolume(){
+            song.volume -= 0.20; // volume value must be between 0 to 2
+        }
+
+        function muteVolume(){
+            song.volume -= 1.0;        
+        }
+
+
+        function increaseVolume(){
+            song.volume += 0.20;
+        }
+
+    
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</html>

@@ -1,0 +1,46 @@
+<html>
+    <head>
+      <title>Christmas Card
+      </title>
+        <link href="Card.css" rel="stylesheet">
+        <script src="JS/Card.js"></script>
+        <link rel = "icon" href =  
+        "https://images.vexels.com/media/users/3/127090/isolated/preview/a608267cdd6ada5e7d294c4b01c92d40-astonished-santa-claus-face-by-vexels.png" 
+        type = "image/x-icon"> 
+    </head>
+    <h2>Click card to open</h2>
+<body>
+  <div class="home">
+  <a href="Christmashome.html">
+    <img src="home.png">
+</a>
+</div>
+      <div class="card__container js-card-opener">
+      <div class="card">
+        <div class="card__panel card__panel--front">
+          <div class="btn-container">
+            <div class="btn"></div>
+            <div class="btn"></div>
+          </div>
+          <div class="belt">
+            <div class="buckle"></div>
+          </div>
+        </div>
+        <div class="card__panel card__panel--inside-left">
+        </div>
+        <div class="card__panel card__panel--inside-right">
+          <h1>Merry<br>Christmas<br>2020!<br>From Suansh</h1>
+        </div>
+      </div>
+    
+    </div>
+  </body>
+    <script>
+        const openBtn = document.querySelector(".js-card-opener");
+
+openBtn.onclick = function () {
+  document.body.classList.toggle("open");
+};
+
+    </script>
+</html>
